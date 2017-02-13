@@ -1,0 +1,13 @@
+body{
+    background-color: #f8f8f8;
+}
+.weui-cell_select span.percent{
+    padding: 0 0 0 15px;
+}
+.result1-form{
+    margin-top:1.17647059em;
+    display: none;
+}
+#dt-dayPeriod{
+    display: none;
+}
