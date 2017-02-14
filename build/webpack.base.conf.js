@@ -12,7 +12,9 @@ module.exports = {
     app: './src/main.js'
   },
   externals: {
-    zepto: 'Zepto'
+    zepto: 'Zepto',
+    weui: 'weui',
+    excel: 'excel'
   },
   output: {
     path: config.build.assetsRoot,

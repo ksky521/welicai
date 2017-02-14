@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Fuli from 'components/Fuli'
+import Fulisy from 'components/Fulisy'
+import Fulidt from 'components/Fulidt'
 import Index from 'components/Index'
 
 Vue.use(Router)
@@ -11,8 +12,12 @@ export default new Router({
     name: 'Index',
     component: Index
   }, {
-    path: '/fuli',
-    name: 'Fuli',
-    component: Fuli
+    path: '/fuli/sy',
+    name: 'Fulisy',
+    component: Fulisy
+  }, {
+    path: '/fuli/dt',
+    name: 'Fulidt',
+    component: Fulidt
   }]
 })

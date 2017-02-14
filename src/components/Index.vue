@@ -1,42 +1,42 @@
 <template>
   <ul>
-    <li>
-      <div class="weui-flex js_category">
-        <p class="weui-flex__item">工具</p>
+    <li v-bind:class="{js_show:showfl}">
+      <div class="weui-flex" @click="showfl =! showfl">
+        <p class="weui-flex__item">理财计算器</p>
       </div>
-      <div class="page__category js_categoryInner" data-height="220">
-        <div class="weui-cells page__category-content">
-          <router-link to="fuli" class="weui-cell weui-cell_access">
-            <div class="weui-cell__bd">
-                <p>计算器</p>
-            </div>
-            <div class="weui-cell__ft"></div>
-          </router-link>
-          <a class="weui-cell weui-cell_access js_item" data-id="slider" href="javascript:;">
-            <div class="weui-cell__bd">
-                <p>Slider</p>
-            </div>
-            <div class="weui-cell__ft"></div>
-          </a>
-          <a class="weui-cell weui-cell_access js_item" data-id="uploader" href="javascript:;">
-            <div class="weui-cell__bd">
-                <p>Uploader</p>
-            </div>
-            <div class="weui-cell__ft"></div>
-          </a>
+        <div class="page__category">
+          <div class="weui-cells page__category-content">
+            <router-link to="/fuli/sy" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>收益计算</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
+            <router-link to="/fuli/dt" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>复利定投</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
+            <router-link to="/fuli/ni" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>复利逆计算</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
+          </div>
         </div>
-      </div>
     </li>
     <li></li>
   </ul>
 </template>
 
 <script>
-import $ from 'zepto'
 export default {
   name: 'index',
   data () {
     return {
+      showfl: false,
       appData: {
         title: '首页',
         description: '首页描述'
@@ -45,46 +45,10 @@ export default {
   },
   created () {
     this.$emit('sendTitleDesc', this.appData)
-  },
-  mounted () {
-    var winH = $(window).height()
-    var categorySpace = 10
-
-    $('.js_category').on('click', function () {
-      var $this = $(this)
-      var $inner = $this.next('.js_categoryInner')
-      var $page = $this.parents('#app')
-      var $parent = $(this).parent('li')
-      var innerH = $inner.data('height')
-
-      if (!innerH) {
-        $inner.css('height', 'auto')
-        innerH = $inner.height()
-        $inner.removeAttr('style')
-        $inner.data('height', innerH)
-      }
-
-      if ($parent.hasClass('js_show')) {
-        $parent.removeClass('js_show')
-      } else {
-        $parent.siblings().removeClass('js_show')
-
-        $parent.addClass('js_show')
-        if (this.offsetTop + this.offsetHeight + innerH > $page.scrollTop() + winH) {
-          var scrollTop = this.offsetTop + this.offsetHeight + innerH - winH + categorySpace
-
-          if (scrollTop > this.offsetTop) {
-            scrollTop = this.offsetTop - categorySpace
-          }
-
-          $page.scrollTop(scrollTop)
-        }
-      }
-    })
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss"scoped>
   $pageHomePadding: 20px;
   li{
     margin: 10px 0;
@@ -121,9 +85,6 @@ export default {
     padding: $pageHomePadding;
     align-items: center;
     transition: .3s;
-    //&:active{
-    //    background-color: #ECECEC;
-    //}
   }
   .weui-cells{
     margin-top: 0;
