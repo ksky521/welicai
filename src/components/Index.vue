@@ -6,15 +6,15 @@
       </div>
         <div class="page__category">
           <div class="weui-cells page__category-content">
-            <router-link to="/fuli/sy" class="weui-cell weui-cell_access">
+            <router-link to="/fuli/shouyi" class="weui-cell weui-cell_access">
               <div class="weui-cell__bd">
-                  <p>收益计算</p>
+                  <p>投资收益计算</p>
               </div>
               <div class="weui-cell__ft"></div>
             </router-link>
-            <router-link to="/fuli/dt" class="weui-cell weui-cell_access">
+            <router-link to="/fuli/dingtou" class="weui-cell weui-cell_access">
               <div class="weui-cell__bd">
-                  <p>复利定投</p>
+                  <p>定期定额投资收益</p>
               </div>
               <div class="weui-cell__ft"></div>
             </router-link>
@@ -27,7 +27,60 @@
           </div>
         </div>
     </li>
-    <li></li>
+    <li v-bind:class="{js_show:showfang}">
+      <div class="weui-flex" @click="showfang =! showfang">
+        <p class="weui-flex__item">买房 vs 投资</p>
+      </div>
+        <div class="page__category">
+          <div class="weui-cells page__category-content">
+            <router-link to="/fang/dai" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>房贷计算器</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
+            <router-link to="/fang/touzi" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>买房 vs 其他投资</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
+            <router-link to="/fang/tiqian" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>提前还贷</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
+          </div>
+        </div>
+      </li>
+      <li v-bind:class="{js_show:showbx}">
+      <div class="weui-flex" @click="showbx =! showbx">
+        <p class="weui-flex__item">保险 vs 投资</p>
+      </div>
+        <div class="page__category">
+          <div class="weui-cells page__category-content">
+            <router-link to="/fang/dai" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>房贷计算器</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
+            <router-link to="/fang/touzi" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>买房 vs 其他投资</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
+            <router-link to="/fang/tiqian" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>提前还贷</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
+          </div>
+        </div>
+      </li>
   </ul>
 </template>
 
@@ -37,6 +90,8 @@ export default {
   data () {
     return {
       showfl: false,
+      showfang: false,
+      showbx: false,
       appData: {
         title: '首页',
         description: '首页描述'

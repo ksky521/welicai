@@ -2,16 +2,21 @@
 <div>
   <div class="weui-cells__title">金额</div>
   <div class="weui-cells">
-    <div class="weui-cell weui-cell_select weui-cell_select-after">
+    <div class="weui-cell">
       <div class="weui-cell__bd">
         <input v-model="money" class="weui-input" type="number" pattern="[0-9\.]*" placeholder="请输入投入金额">
       </div>
-      <div class="weui-cell__hd">
-        <select v-model="multiple" class="weui-select" name="select2">
-          <option value="1">元</option>
-          <option value="10000">万元</option>
-          <option value="1000">千元</option>
-        </select>
+      <div class="weui-cell__ft weui-cell__ft_rg">
+        <div class="weui-radio-group">
+          <label class="weui-radio-button" for="r9">
+            <input id="r9" v-model="multiple" name="multiple" type="radio" value="10000">
+            <span>万元</span>
+          </label>
+          <label class="weui-radio-button" for="r7">
+            <input id="r7" v-model="multiple" name="multiple" type="radio" value="1">
+            <span>元</span>
+          </label>
+        </div>
       </div>
     </div>
   </div>
@@ -46,20 +51,12 @@
     </div>
     <div class="weui-form-preview__bd">
       <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label">复利本息</label>
+        <label class="weui-form-preview__label">本息</label>
         <span class="weui-form-preview__value">{{principal}}</span>
       </div>
       <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label">复利利息</label>
+        <label class="weui-form-preview__label">利息</label>
         <span class="weui-form-preview__value">{{interest}}</span>
-      </div>
-      <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label">普通本息</label>
-        <span class="weui-form-preview__value">{{cprincipal}}</span>
-      </div>
-      <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label">普通利息</label>
-        <span class="weui-form-preview__value">{{cinterest}}</span>
       </div>
     </div>
   </div>
@@ -73,7 +70,7 @@ export default {
   data () {
     return {
       appData: {
-        title: '复利收益计算',
+        title: '投资收益计算',
         description: ''
       },
       money: '',
@@ -82,8 +79,6 @@ export default {
       multiple: 1,
       result: 0,
       interest: 0,
-      cinterest: 0,
-      cprincipal: 0,
       principal: 0
     }
   },
@@ -114,8 +109,6 @@ export default {
           total += money
           result = (result + money) * rate
         }
-        this.cprincipal = parseFloat(money * rate * period).toFixed(2)
-        this.cinterest = parseFloat(money * t.rate / 100 * period).toFixed(2)
         this.principal = total
         result = parseFloat(result).toFixed(2)
         this.interest = parseFloat(result - total).toFixed(2)
@@ -135,8 +128,5 @@ export default {
 }
 .result1-form{
   margin-top:1.17647059em;
-}
-.weui-btn-area{
-  margin: 1.3em 15px;
 }
 </style>

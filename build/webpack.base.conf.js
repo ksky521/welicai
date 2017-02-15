@@ -14,7 +14,8 @@ module.exports = {
   externals: {
     zepto: 'Zepto',
     weui: 'weui',
-    excel: 'excel'
+    formula: 'formulajs',
+    excel: 'ExcelFormulas'
   },
   output: {
     path: config.build.assetsRoot,
@@ -27,7 +28,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     modules: [
       resolve('src'),
-      resolve('node_modules')
+      resolve('node_modules'),
+      resolve('static/css')
     ],
     alias: {
       'vue$': 'vue/dist/vue.common.js',
@@ -38,6 +40,16 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: "style-loader" // creates style nodes from JS strings
+        }, {
+          loader: "css-loader" // translates CSS into CommonJS
+        }, {
+          loader: "sass-loader" // compiles Sass to CSS
+        }]
+      },
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',

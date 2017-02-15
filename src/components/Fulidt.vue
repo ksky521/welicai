@@ -2,16 +2,21 @@
   <div>
     <div class="weui-cells__title">每期投入</div>
     <div class="weui-cells">
-      <div class="weui-cell weui-cell_select weui-cell_select-after">
+      <div class="weui-cell">
         <div class="weui-cell__bd">
           <input v-model="money" class="weui-input" type="number" pattern="[0-9\.]*" placeholder="请输入投入金额">
         </div>
-        <div class="weui-cell__hd">
-          <select v-model="multiple" class="weui-select">
-            <option value="1">元</option>
-            <option value="3">万元</option>
-            <option value="2">千元</option>
-          </select>
+        <div class="weui-cell__ft weui-cell__ft_rg">
+          <div class="weui-radio-group">
+            <label class="weui-radio-button" for="r9">
+              <input id="r9" v-model="multiple" name="multiple" type="radio" value="10000">
+              <span>万元</span>
+            </label>
+            <label class="weui-radio-button" for="r7">
+              <input id="r7" v-model="multiple" name="multiple" type="radio" value="1">
+              <span>元</span>
+            </label>
+          </div>
         </div>
       </div>
 
@@ -66,15 +71,21 @@
 
     <div class="weui-cells__title">定投期数</div>
     <div class="weui-cells">
-      <div class="weui-cell weui-cell_select weui-cell_select-after">
+      <div class="weui-cell">
         <div class="weui-cell__bd">
           <input class="weui-input" v-model="period" type="number" pattern="[0-9]*" placeholder="请输入期数">
         </div>
-        <div class="weui-cell__hd">
-          <select v-model="ptype" class="weui-select">
-            <option value="1">期数</option>
-            <option value="year">年限</option>
-          </select>
+        <div class="weui-cell__ft weui-cell__ft_rg">
+          <div class="weui-radio-group">
+            <label class="weui-radio-button" for="r0">
+              <input id="r0" v-model="ptype" name="ptype" type="radio" value="1">
+              <span>期数</span>
+            </label>
+            <label class="weui-radio-button" for="r6">
+              <input id="r6" v-model="ptype" name="ptype" type="radio" value="year">
+              <span>年限</span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -109,25 +120,25 @@
 
 <script>
   import weui from 'weui'
+  // import formula from 'formula'
   import excel from 'excel'
-
   export default {
     data () {
       return {
         appData: {
-          title: '定投收入计算器',
+          title: '定期定额投资收益',
           description: ''
         },
         money: '',
         percent: 'year',
-        multiple: 1,
+        multiple: '1',
         rate: '',
         interest: 0,
         period: '',
         total: 0,
         days: '',
         result: 0,
-        ptype: 1,
+        ptype: '1',
         rperiod: 0
       }
     },
@@ -140,7 +151,7 @@
       doit () {
         var done = true
         var t = this;
-        ['money', 'multiple', 'rate'].forEach(function (id) {
+        ['money', 'period', 'rate'].forEach(function (id) {
           if (!t[id]) {
             done && weui.topTips('请填写正确的字段', {
               duration: 3000,
@@ -158,14 +169,14 @@
             done = false
           }
         }
-        // console.log(excel.FV(0.05/12, 1*12, 300, 1).toFixed(2))
+        // console.log(formula.FV(0.05/12, 1*12, 300, 1).toFixed(2))
         if (done) {
           var money = t.money * t.multiple
           var rate = t.rate / 100
           var period = t.period
           var percent = t.percent
           var fm = 1
-          var ptype = t.ptype
+
           switch (percent) {
             case 'year':
               break
@@ -177,6 +188,8 @@
               break
           }
 
+          var ptype = t.ptype
+
           if (ptype === 'year') {
             period = fm * period
           }
@@ -185,6 +198,7 @@
           this.total = money * period
 
           var sum = this.result = -excel.FV(rate / fm, period, money, 1).toFixed(2)
+          // console.log()
           this.interest = (sum - this.total).toFixed(2)
         }
       }
@@ -192,7 +206,4 @@
   }
 </script>
 <style lang="scss" scoped>
-.weui-btn-area{
-  margin: 1.3em 15px;
-}
 </style>
