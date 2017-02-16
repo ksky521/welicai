@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Fulisy from 'components/Fulisy'
 import Fulidt from 'components/Fulidt'
 import Fulini from 'components/Fulini'
+import Licai from 'components/Licai'
 
 import Fangtq from 'components/Fangtq'
 import Fangtz from 'components/Fangtz'
@@ -15,33 +16,37 @@ Vue.use(Router)
 export default new Router({
   routes: [{
     path: '/',
-    name: 'Index',
+    name: 'index',
     component: Index
   }, {
     path: '/fuli/shouyi',
-    name: 'Fulisy',
+    name: 'fulisy',
     component: Fulisy
   }, {
+    path: '/licai',
+    name: 'licai',
+    component: Licai
+  }, {
     path: '/fuli/ni',
-    name: 'Fulini',
+    name: 'fulini',
     component: Fulini
   }, {
     path: '/fuli/dingtou',
-    name: 'Fulidt',
+    name: 'fulidt',
     component: Fulidt
   },
   // 买房还贷投资
   {
     path: '/fang/tiqian',
-    name: 'Fangtq',
+    name: 'fangtq',
     component: Fangtq
   }, {
     path: '/fang/touzi',
-    name: 'Fangtz',
+    name: 'fangtz',
     component: Fangtz
   }, {
     path: '/fang/dai',
-    name: 'Fangdai',
+    name: 'fangdai',
     component: Fangdai
   }]
 })

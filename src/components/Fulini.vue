@@ -142,7 +142,6 @@
   </div>
 </template>
 <script>
-  // import formula from 'formula'
   import weui from 'weui'
   import excel from 'excel'
   export default {

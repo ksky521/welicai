@@ -8,8 +8,8 @@
     data () {
       return {
         appData: {
-          title: '房贷提前还款方式选择',
-          description: '提前还款50万，是选择缩短贷款年限，还是减少每月还款额度呢？'
+          title: '网贷真相',
+          description: '急缺钱用，通过微粒贷、借呗等互联网产品贷款10万应急，每月还款xxx，日利息xxx，真的合算吗？'
         }
       }
     },

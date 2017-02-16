@@ -6,9 +6,15 @@
       </div>
         <div class="page__category">
           <div class="weui-cells page__category-content">
+            <router-link to="/licai" class="weui-cell weui-cell_access">
+              <div class="weui-cell__bd">
+                  <p>理财产品收益计算</p>
+              </div>
+              <div class="weui-cell__ft"></div>
+            </router-link>
             <router-link to="/fuli/shouyi" class="weui-cell weui-cell_access">
               <div class="weui-cell__bd">
-                  <p>投资收益计算</p>
+                  <p>复利投资收益计算</p>
               </div>
               <div class="weui-cell__ft"></div>
             </router-link>
