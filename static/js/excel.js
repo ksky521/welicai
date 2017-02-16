@@ -24,15 +24,18 @@ var ExcelFormulas = {
     return pmt;
   },
 
-  IPMT: function(pv, pmt, rate, per) {
-    var tmp = Math.pow(1 + rate, per);
+  IPMT: function(rate, per, nper, pv, fv, type) {
+    if (per < 1 || (per >= nper + 1)) return null;
+    var tmp = Math.pow(1 + rate, per - 1);
+    var pmt = this.PMT(rate, nper, pv, fv, type);
+
     return 0 - (pv * tmp * rate + pmt * (tmp - 1));
   },
 
   PPMT: function(rate, per, nper, pv, fv, type) {
     if (per < 1 || (per >= nper + 1)) return null;
     var pmt = this.PMT(rate, nper, pv, fv, type);
-    var ipmt = this.IPMT(pv, pmt, rate, per - 1);
+    var ipmt = this.IPMT(rate, per, nper, pv, fv, type);
     return pmt - ipmt;
   },
 
