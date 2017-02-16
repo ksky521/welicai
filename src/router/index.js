@@ -48,5 +48,11 @@ export default new Router({
     path: '/fang/dai',
     name: 'fangdai',
     component: Fangdai
+  },
+  // 保险
+  {
+    path: '/baoxian',
+    name: 'baoxian',
+    component: Baoxian
   }]
 })

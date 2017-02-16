@@ -98,10 +98,13 @@
       </div>
     </div>
     <div class="weui-btn-area"> <a @click="doit"class="weui-btn weui-btn_primary">计算</a> </div>
-    <div class="result">
-      总利息：{{interest}}
-      <span v-show="type=='1'">每月还款额度：{{resultS[0]}}</span>
-      <span v-show="type=='2'">每月还本金：{{resultP[0]}}</span>
+    <div class="result" v-show="show">
+      <ul class="result__hd">
+        <li>总利息：{{interest}}</li>
+        <li v-show="type=='1'">每月还款额度：{{resultS[0]}}</li>
+        <li v-show="type=='2'">每月还本金：{{resultP[0]}}</li>
+      </ul>
+
       <table>
         <tr>
           <th>期数</th>
@@ -242,13 +245,29 @@ export default {
 .weui-label-lg{
   width: 145px;
 }
+.result__hd{
+  padding: 0 15px
+}
+.result{
+  position: relative;
+}
 table{
+  margin-top: 20px;
   text-align: right;
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   tr:nth-child(even){
-    background-color: gray
+    background-color: #fff
+  }
+  td {
+    padding: 6px 0 3px;
+    &:last-child{
+      padding-right: 10px
+    }
+  }
+  th:last-child{
+    padding-right: 10px
   }
 }
 
