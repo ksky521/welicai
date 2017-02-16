@@ -80,7 +80,7 @@
         </div>
       </div>
       <div v-if="rate==='diy'" class="weui-cell" >
-        <div class="weui-cell__hd"><label class="weui-label">标准利率 &nbsp; × &nbsp;系数</label></div>
+        <div class="weui-cell__hd"><label class="weui-label weui-label-lg">标准利率 &nbsp; × &nbsp;系数</label></div>
         <div class="weui-cell__bd">
             <input v-model="coe" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入系数，如0.83">
         </div>
@@ -98,7 +98,27 @@
       </div>
     </div>
     <div class="weui-btn-area"> <a @click="doit"class="weui-btn weui-btn_primary">计算</a> </div>
-
+    <div class="result">
+      总利息：{{interest}}
+      <span v-show="type=='1'">每月还款额度：{{resultS[0]}}</span>
+      <span v-show="type=='2'">每月还本金：{{resultP[0]}}</span>
+      <table>
+        <tr>
+          <th>期数</th>
+          <th v-show="type=='2'">合计</th>
+          <th v-show="type=='1'">本金</th>
+          <th>利息</th>
+          <th>剩余贷款</th>
+        </tr>
+        <tr v-for="(item, index) in resultP ">
+          <td>{{index+1}}</td>
+          <td v-show="type=='2'">{{resultS[index]}}</td>
+          <td v-show="type=='1'">{{resultP[index]}}</td>
+          <td>{{resultI[index]}}</td>
+          <td>{{resultR[index]}}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 <script>
@@ -118,11 +138,16 @@ export default {
       rate: '1',
       coe: '',
       rates: {
-        gjj: 0.038,
-        sd: 0.049
+        gjj: 0.0325,
+        sy: 0.049
       },
       // 结果
-      result: ''
+      resultP: [],
+      resultS: [],
+      resultR: [],
+      resultI: [],
+      interest: 0,
+      show: false
     }
   },
   created () {
@@ -134,8 +159,10 @@ export default {
       var done = true
       var t = this
       var arr = ['total']
-      if (this.rate === 'diy') {
+      var rate = this.rate
+      if (rate === 'diy') {
         arr.push('coe')
+        rate = this.coe
       }
       arr.forEach(function (id) {
         if (!t[id]) {
@@ -146,11 +173,83 @@ export default {
           done = false
         }
       })
-      console.log(excel.PV)
+
+      var total = this.total * this.multiple
+      var baseRate = this.rates[this.dktype]
+      // 贷款类型
+      var type = this.type | 0
+      // 实际利率
+      rate = baseRate * parseFloat(rate) / 12
+      // 还款期数
+      var period = this.period | 0
+      // 总利息
+      var interest = 0
+      var i = 0
+      var data = {
+        // 本金
+        p: [],
+        // 利息
+        i: [],
+        // 本息和值
+        s: [],
+        // 剩余
+        r: []
+      }
+      var temp
+      var dai = total
+
+      if (type === 1) {
+        // 等额本息
+        var pmt = parseFloat(excel.PMT(rate, period, -total).toFixed(2))
+        for (i = 1; i <= period; i++) {
+          temp = parseFloat(excel.IPMT(rate, i, period, -total).toFixed(2))
+          // debugger
+          data.i.push(temp)
+          data.s.push(pmt)
+          var p = parseFloat(pmt - temp).toFixed(2)
+          data.p.push(p)
+          dai = parseFloat(dai - p).toFixed(2)
+          data.r.push(dai)
+          interest += temp
+        }
+        interest = interest.toFixed(2)
+      } else {
+        // 等额本金
+        // 每期本金
+        var b = parseFloat(total / period).toFixed(2)
+        for (i = 0; i < period; i++) {
+          // 上取证书
+          temp = -Math.floor(-(total - b * i) * rate)
+          interest += temp
+          data.i.push(temp)
+          data.p.push(b)
+          data.s.push(b + temp).toFixed(2)
+          data.r.push(total - b * (i + 1).toFixed(2))
+        }
+        interest = interest.toFixed(2)
+      }
+      this.resultR = data.r
+      this.resultS = data.s
+      this.resultP = data.p
+      this.resultI = data.i
+      this.show = true
+      this.interest = interest
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.weui-label-lg{
+  width: 145px;
+}
+table{
+  text-align: right;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  tr:nth-child(even){
+    background-color: gray
+  }
+}
 
 </style>
