@@ -2,25 +2,18 @@
   <div>
     <div class="weui-cells__title">贷款金额</div>
     <div class="weui-cells">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">
-          <input v-model="total" class="weui-input weui-input_disabled" type="number" pattern="[0-9\.]*" placeholder="请输入房贷金额">
+      <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+          <label class="weui-label" id="fi1">贷款金额</label>
         </div>
-        <div class="weui-cell__ft weui-cell__ft_rg">
-          <div class="weui-radio-group">
-            <label class="weui-radio-button" for="r9">
-              <input id="r9" v-model="multiple" name="tmultiple" type="radio" value="10000">
-              <span>万元</span>
-            </label>
-            <label class="weui-radio-button" for="r7">
-              <input id="r7" v-model="multiple" name="tmultiple" type="radio" value="1">
-              <span>元</span>
-            </label>
-          </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" id="fi1" v-model="total" type="number" placeholder="请输入贷款金额">
+        </div>
+        <div class="weui-cell__ft">
+          <span class="weui-vcode-btn percent">万元</span>
         </div>
       </div>
     </div>
-
     <div class="weui-cells__title">贷款来源</div>
     <div class="weui-cells weui-cells_radio">
       <label class="weui-cell weui-check__label" for="r2">
@@ -134,7 +127,7 @@ export default {
         title: '房贷计算器'
       },
       total: '',
-      multiple: '10000',
+      multiple: 10000,
       dktype: 'sy',
       period: '240',
       type: '1',
@@ -219,15 +212,15 @@ export default {
       } else {
         // 等额本金
         // 每期本金
-        var b = parseFloat(total / period).toFixed(2)
+        var b = parseFloat((total / period).toFixed(2))
         for (i = 0; i < period; i++) {
           // 上取证书
-          temp = -Math.floor(-(total - b * i) * rate)
+          temp = parseFloat(((total - b * i) * rate).toFixed(2))
           interest += temp
           data.i.push(temp)
           data.p.push(b)
-          data.s.push(b + temp).toFixed(2)
-          data.r.push(total - b * (i + 1).toFixed(2))
+          data.s.push(parseFloat((b + temp).toFixed(2)))
+          data.r.push(parseFloat((total - b * (i + 1)).toFixed(2)))
         }
         interest = interest.toFixed(2)
       }
