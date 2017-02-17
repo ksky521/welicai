@@ -95,10 +95,6 @@
       document.title = this.appData.title
     },
     methods: {
-      reduPeriod: function () {
-      },
-      reduMoney: function () {
-      },
       repay: function (type, rate, period, total) {
         type = type | 0
         var dai = total
@@ -121,7 +117,7 @@
             // debugger
             data.i.push(temp)
             data.s.push(pmt)
-            var p = parseFloat(pmt - temp).toFixed(2)
+            var p = parseFloat((pmt - temp).toFixed(2))
             data.p.push(p)
             dai = parseFloat((dai - p).toFixed(2))
             data.r.push(dai)
@@ -175,28 +171,41 @@
 
           // 剩余还款计划
           var data = this.repay(this.type, rate, period, total)
+          var oldInterest = 0
+          data.i.forEach(function (v) {
+            oldInterest += v
+          })
+
           // 完成还款计划
           var exData = {}
           for (var i in data) {
             exData[i] = data[i].splice(0, doMonth)
           }
+
+          // 计算新的还款
           // 剩余贷款
           var newTotal = data.r[0] - money
 
           console.log(newTotal)
           // 期数不变
           var newData = this.repay(this.type, rate, period - doMonth, newTotal)
-          console.log(newData)
+          var newInterest = 0
+          newData.i.forEach(function (v) {
+            newInterest += v
+          })
+          console.log(newData, oldInterest - newInterest)
           // 月还款额度不变
           var dataS = data.s
+          var tTotal = newTotal
           for (i = 0; i < period - doMonth; i++) {
-            if (newTotal <= 0) {
+            if (tTotal <= 0) {
               break
             }
-            newTotal -= dataS[i]
+            tTotal -= dataS[i]
           }
           var end = new Date(fmonth.getFullYear(), fmonth.getMonth() + i, 1)
-          console.log(end)
+          newData = this.repay(this.type, rate, i, newTotal)
+          console.log(end, newData, i, data.s)
         }
       }
     }
