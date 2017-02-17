@@ -4,6 +4,7 @@ import Fulisy from 'components/Fulisy'
 import Fulidt from 'components/Fulidt'
 import Fulini from 'components/Fulini'
 import Licai from 'components/Licai'
+import Baoxian from 'components/Baoxian'
 
 import Fangtq from 'components/Fangtq'
 import Fangtz from 'components/Fangtz'

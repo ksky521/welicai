@@ -54,7 +54,7 @@
           <label class="weui-label" id="i1">贷款利率</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" id="i1" v-model="rate" type="number" placeholder="请输入手机号">
+          <input class="weui-input" id="i1" v-model="rate" type="number" placeholder="请输入贷款利率">
         </div>
         <div class="weui-cell__ft">
           <span class="weui-vcode-btn percent">%</span>
