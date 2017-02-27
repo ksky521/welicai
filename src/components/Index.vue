@@ -66,21 +66,9 @@
       </div>
         <div class="page__category">
           <div class="weui-cells page__category-content">
-            <router-link to="/fang/dai" class="weui-cell weui-cell_access">
+            <router-link to="/baoxian" class="weui-cell weui-cell_access">
               <div class="weui-cell__bd">
-                  <p>房贷计算器</p>
-              </div>
-              <div class="weui-cell__ft"></div>
-            </router-link>
-            <router-link to="/fang/touzi" class="weui-cell weui-cell_access">
-              <div class="weui-cell__bd">
-                  <p>买房 vs 其他投资</p>
-              </div>
-              <div class="weui-cell__ft"></div>
-            </router-link>
-            <router-link to="/fang/tiqian" class="weui-cell weui-cell_access">
-              <div class="weui-cell__bd">
-                  <p>提前还贷</p>
+                  <p>保险理财靠谱吗？</p>
               </div>
               <div class="weui-cell__ft"></div>
             </router-link>
