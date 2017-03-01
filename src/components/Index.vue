@@ -87,8 +87,8 @@ export default {
       showfang: false,
       showbx: false,
       appData: {
-        title: '首页',
-        description: '首页描述'
+        title: '理财计算器',
+        description: '本网页收集了很多经常用到的理财计算方法，学好财务函数很重要'
       }
     }
   },
