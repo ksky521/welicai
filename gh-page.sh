@@ -1,8 +1,9 @@
 #! /bin/sh
-
+npm i
+npm run build
 rm -rf publish
 mkdir publish
-mv dist/* publish
+cp -r dist/* publish
 cd publish
 
 git init
