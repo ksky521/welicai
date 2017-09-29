@@ -212,7 +212,7 @@
             var rrate = 0
             var arr = [-targetMoney]
             var dates = [new Date(2000, 0, 1)]
-            var money = t.money
+            var money = t.money * t.multiple
             var rtotal = 0
 
             switch (percent) {
